@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Image, View, Pressable } from 'react-native';
 import { Stack, useNavigation, useSearchParams } from 'expo-router';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { View as ThemedView } from '../components/Themed';
 import { Text } from '../components/Text';
@@ -10,8 +11,9 @@ import { OrdinalPreview } from '../components/OrdinalPreview';
 import { HIT_SLOP } from '../constants/Pressable';
 
 export default function DetailsScreen() {
-  const searchParams = useSearchParams();
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+  const searchParams = useSearchParams();
   const { ordinal } = searchParams;
   const ordinalObject = JSON.parse(ordinal as string) as OrdinalDetail;
 
@@ -42,7 +44,7 @@ export default function DetailsScreen() {
           },
         }}
       />
-      <ThemedView style={[styles.container, styles.flex1]}>
+      <ThemedView style={[{ paddingBottom: insets.bottom }, styles.flex1]}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.flex1}
@@ -113,9 +115,6 @@ const styles = StyleSheet.create({
   },
   flexGrow1: {
     flexGrow: 1,
-  },
-  container: {
-    paddingBottom: 40,
   },
   detailsContainer: {
     paddingHorizontal: 16,
