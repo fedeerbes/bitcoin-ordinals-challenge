@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { formatAddressForDisplay } from '../utils/address';
 
 import { Text } from './Text';
+import { useThemeColor } from './Themed';
 
 interface AttributeItemProps {
   label: string;
@@ -12,13 +13,20 @@ interface AttributeItemProps {
 }
 
 export const AttributeItem = (props: AttributeItemProps) => {
+  const backgroundColor = useThemeColor({}, 'inputBackground');
+
   return (
     <>
       <Text type="caption" style={styles.caption}>
         {props.label}
       </Text>
       <View
-        style={props.useContainerForValue && styles.attributeValueContainer}>
+        style={
+          props.useContainerForValue && [
+            styles.attributeValueContainer,
+            { backgroundColor },
+          ]
+        }>
         <Text>
           {props.cropValue
             ? formatAddressForDisplay({
@@ -37,7 +45,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   attributeValueContainer: {
-    backgroundColor: '#24252C',
     padding: 12,
     borderRadius: 8,
   },
