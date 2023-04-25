@@ -56,6 +56,8 @@ export default function MainScreen() {
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           keyExtractor={(item) => item.metadata.id}
           estimatedItemSize={200}
+          keyboardDismissMode="on-drag"
+          keyboardShouldPersistTaps="handled"
         />
       )}
     </View>
