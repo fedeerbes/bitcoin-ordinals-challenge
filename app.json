@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bitcoin-ordinals-challenge",
+    "name": "Bitcoin Ordinals Challenge",
     "slug": "bitcoin-ordinals-challenge",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,11 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {

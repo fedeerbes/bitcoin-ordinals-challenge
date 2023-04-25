@@ -1,9 +1,15 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
+import { Pressable, useColorScheme } from 'react-native';
+
+import { useThemeColor } from '../components/Themed';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -11,13 +17,14 @@ export {
 } from 'expo-router';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'index',
 };
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    'Montserrat-Bold': require('../assets/fonts/Montserrat-Bold.ttf'),
+    Montserrat: require('../assets/fonts/Montserrat-Regular.ttf'),
+    'Montserrat-SemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
     ...FontAwesome.font,
   });
 
@@ -37,13 +44,35 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const backgroundColor = useThemeColor({}, 'background');
+
+  const headerConfig = {
+    headerStyle: { backgroundColor },
+    headerTitleStyle: {
+      fontFamily: 'Montserrat-SemiBold',
+      fontSize: 14,
+      fontWeight: '600',
+    },
+  } as const;
 
   return (
     <>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          <Stack.Screen
+            name="index"
+            options={{
+              headerTitle: 'Ordinal Inscription Lookup',
+              ...headerConfig,
+            }}
+          />
+          <Stack.Screen
+            name="details"
+            options={{
+              headerTitle: 'Ordinal Inscription Lookup',
+              ...headerConfig,
+            }}
+          />
         </Stack>
       </ThemeProvider>
     </>
